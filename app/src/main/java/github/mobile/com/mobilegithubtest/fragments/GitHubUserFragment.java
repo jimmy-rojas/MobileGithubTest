@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 import github.mobile.com.mobilegithubtest.R;
+import github.mobile.com.mobilegithubtest.core.adapters.GithubUserAdapter;
 import github.mobile.com.mobilegithubtest.mvp.models.GithubUser;
 import github.mobile.com.mobilegithubtest.mvp.presenters.GithubUserPresenter;
 import github.mobile.com.mobilegithubtest.mvp.view.GitHubUserFragmentView;
@@ -22,6 +24,8 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
     private ViewDataBinding binding;
     private RecyclerView recyclerView;
     private GithubUserPresenter presenter;
+    private GithubUserAdapter adapter;
+    private List<GithubUser> githubUserData;
 
     public GitHubUserFragment() {
         // Required empty public constructor
@@ -52,11 +56,25 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
 
     @Override
     public void renderGithubUserData(List<GithubUser> userDataList) {
-//        data = userDataList;
-        //TODO: render data in UI
+        githubUserData = userDataList;
+        if (adapter == null) {
+            adapter = new GithubUserAdapter(githubUserData, new GithubUserAdapter.IOnUserEventListener() {
+                @Override
+                public void onUserDataLink(int position, GithubUser item) {
+
+                }
+
+                @Override
+                public void onRepositoryDataLink(int position, GithubUser item) {
+
+                }
+            });
+            recyclerView.setAdapter(adapter);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public void onLoadMore(){
-        ////TODO: load more data on demand
+        presenter.loadMoreData();
     }
 }

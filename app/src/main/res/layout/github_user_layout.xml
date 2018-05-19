@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="holder" type='github.mobile.com.mobilegithubtest.core.adapters.GithubUserAdapter.ViewHolder' />
+        <variable name="githubUser" type='github.mobile.com.mobilegithubtest.mvp.models.GithubUser' />
+
+    </data>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+             <android.support.v7.widget.AppCompatImageView
+                 android:id="@+id/imgUser"
+                 android:src="@color/cardview_light_background"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text='@{githubUser.getLogin, default="UserName"}'
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtUserPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="See in GitHub"
+                android:textStyle="bold"
+                android:onClick="@{() -> holder.onUserDataLink()}" />
+            <TextView
+                android:id="@+id/txtUserRepos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="See Repositories"
+                android:textStyle="bold"
+                android:onClick="@{() -> holder.onRepositoryDataLink()}" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>
