@@ -5,15 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GitHub users</title>
   <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.mobile-1.4.5.min.js"></script>
-  
   <script src="_assets/js/index.js"></script>
+
+  <style type="text/css">
+    .userthumb{
+    max-height:150px;
+    max-width:150px;
+    height:auto;
+    width:auto;
+    }
+  </style>
 </head>
 <body>
-  <div data-role="page">
-    ...
+<div data-role="page" id="foo">
+<div data-role="header">
+<h1>Github Users</h1>
+</div>
+<div role="main" class="ui-content">
+
+<ul id="ul_userList" data-role="listview" data-inset="true">
+</ul>
+
+<input id="btn_loadMore" type="button" value="Load More">
+
+</div>
+<div data-role="footer">
+<h4></h4>
+</div>
+</div>
+
+<div id="bar" data-role="page">
+  <div data-role="header">
+    <h1>Github User Repositories</h1>
   </div>
+  <div role="main" class="ui-content">
+    <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
+    <p><a href="#foo">Back to foo</a></p>
+  </div>
+  <div data-role="footer">
+    <h4></h4>
+  </div>
+</div>
 </body>
 </html>
