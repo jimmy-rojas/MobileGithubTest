@@ -2,13 +2,13 @@ package github.mobile.com.mobilegithubtest.application;
 
 import android.app.Application;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import github.mobile.com.mobilegithubtest.mvp.models.GithubUser;
 
 public class GithubUserApplication extends Application {
 
-    private ArrayList<GithubUser> GithubUserData;
+    private List<GithubUser> GithubUserData;
     private static GithubUserApplication ourInstance;
 
     @Override
@@ -21,11 +21,11 @@ public class GithubUserApplication extends Application {
         return ourInstance;
     }
 
-    public ArrayList<GithubUser> getGithubUserData() {
+    public List<GithubUser> getGithubUserData() {
         return GithubUserData;
     }
 
-    public void setGithubUserData(ArrayList<GithubUser> githubUserData) {
+    public void setGithubUserData(List<GithubUser> githubUserData) {
         GithubUserData = githubUserData;
     }
 
