@@ -54,7 +54,6 @@ public class GithubUserAdapter extends RecyclerView.Adapter<GithubUserAdapter.Vi
         private int position;
         private GithubUserLayoutBinding binding;
 
-
         public ViewHolder(GithubUserLayoutBinding binding) {
             super(binding.getRoot());
             mView = binding.getRoot();
