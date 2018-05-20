@@ -4,7 +4,7 @@ public class GithubUser {
 
     private String login;
     private String avatar_url;
-    private String url;
+    private String html_url;
     private String repos_url;
 
     public String getLogin() {
@@ -23,12 +23,12 @@ public class GithubUser {
         this.avatar_url = avatar_url;
     }
 
-    public String getUrl() {
-        return url;
+    public String getHtml_url() {
+        return html_url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
     }
 
     public String getRepos_url() {

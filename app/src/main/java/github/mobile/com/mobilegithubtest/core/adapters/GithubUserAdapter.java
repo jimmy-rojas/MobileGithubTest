@@ -60,14 +60,15 @@ public class GithubUserAdapter extends RecyclerView.Adapter<GithubUserAdapter.Vi
             mView = binding.getRoot();
             imgUser = binding.getRoot().findViewById(R.id.imgUser);
             this.binding = binding;
+            this.binding.setHolder(this);
         }
 
         public void onUserDataLink() {
-
+            callback.onUserDataLink(position, binding.getGithubUser());
         }
 
         public void onRepositoryDataLink() {
-
+            callback.onRepositoryDataLink(position, binding.getGithubUser());
         }
 
         public void bind(int position, GithubUser githubUser) {
