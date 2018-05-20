@@ -1,5 +1,6 @@
 package github.mobile.com.mobilegithubtest.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import github.mobile.com.mobilegithubtest.MainActivity;
 import github.mobile.com.mobilegithubtest.R;
+import github.mobile.com.mobilegithubtest.application.GithubUserApplication;
 import github.mobile.com.mobilegithubtest.core.adapters.GithubUserAdapter;
 import github.mobile.com.mobilegithubtest.mvp.models.GithubUser;
 import github.mobile.com.mobilegithubtest.mvp.presenters.GithubUserPresenter;
@@ -28,9 +31,18 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
     private GithubUserPresenter presenter;
     private GithubUserAdapter adapter;
     private List<GithubUser> githubUserData;
+    private MainActivity activity;
+    private static GitHubUserFragment _instance;
 
     public GitHubUserFragment() {
         // Required empty public constructor
+    }
+
+    public static GitHubUserFragment get_instance() {
+        if (_instance == null) {
+            _instance = new GitHubUserFragment();
+        }
+        return _instance;
     }
 
     @Override
@@ -47,13 +59,31 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
         return view;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) getActivity();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setScreeTitle("MobileGithubTest");
+        presenter.loadData();
+    }
+
     private void initUiComponents(View view){
         recyclerView = (RecyclerView)view.findViewById(R.id.rv_userList);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         presenter = new GithubUserPresenter(this);
-        presenter.loadData();
     }
 
     @Override
@@ -70,10 +100,12 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
 
                 @Override
                 public void onRepositoryDataLink(int position, GithubUser item) {
+                    GithubUserApplication.getApplicationInstance().setGithubUserAsCurrent(item);
+                    activity.openUserReposScreen();
                 }
             });
-            recyclerView.setAdapter(adapter);
         }
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
