@@ -2,9 +2,9 @@
 
 * Overview
 
-This is an Android project which perform REST call in order to get *Github Users* by following pagination through a *load-more* event.
+This is an Android project which performs REST calls in order to get *Github Users, Repositories* information by following pagination through a *load-more* event.
 
-Once the user's data is displayed, the first screen has two options:
+Once the user's data is displayed, the first screen has two options for each user row:
 
  1. _*See in GitHub*_ link which opens a web-browser and redirect you to review the user information in GitHub site
  2. _*See Repositories*_ link which opens a new screen and display all user's repositories
