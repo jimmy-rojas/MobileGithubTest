@@ -103,8 +103,8 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
                     activity.openUserReposScreen();
                 }
             });
-            recyclerView.setAdapter(adapter);
         }
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
