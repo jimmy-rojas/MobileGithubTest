@@ -21,7 +21,7 @@ public class GithubUserPresenter {
         this.view = view;
         service = new GithubService();
         countPage = 10;
-        currentPage = 0;
+        currentPage = 1;
     }
 
     public void loadData() {

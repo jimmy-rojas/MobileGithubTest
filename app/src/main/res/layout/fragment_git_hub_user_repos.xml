@@ -5,15 +5,59 @@
     tools:context=".fragments.GitHubUserReposFragment">
     <data>
         <import type="android.view.View"/>
+        <variable name="screen" type='github.mobile.com.mobilegithubtest.fragments.GitHubUserReposFragment' />
+        <variable name="currentPage" type="java.lang.String"/>
     </data>
-<FrameLayout
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Github User Repositories" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_userRepoList"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fadeScrollbars="false"
+        android:scrollbarSize="5dp"
+        android:descendantFocusability="afterDescendants">
 
-</FrameLayout>
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnLoadPrevious"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> screen.onLoadPrevious()}"
+            android:text="@string/loadPrevious" />
+        <TextView
+            android:id="@+id/txt_pageNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text='@{currentPage, default="loading"}' />
+        <Button
+            android:id="@+id/btnLoadNext"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> screen.onLoadNext()}"
+            android:text="@string/loadNext" />
+    </LinearLayout>
+
+</LinearLayout>
 </layout>
