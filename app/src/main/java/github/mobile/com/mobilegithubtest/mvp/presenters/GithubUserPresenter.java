@@ -1,6 +1,5 @@
 package github.mobile.com.mobilegithubtest.mvp.presenters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import github.mobile.com.mobilegithubtest.application.GithubUserApplication;
@@ -15,35 +14,48 @@ public class GithubUserPresenter {
 
     private GitHubUserFragmentView view;
     private GithubService service;
+    private int countPage;
+    private int currentPage;
 
     public GithubUserPresenter(GitHubUserFragmentView view) {
         this.view = view;
         service = new GithubService();
+        countPage = 10;
+        currentPage = 0;
     }
 
     public void loadData() {
         if (GithubUserApplication.getApplicationInstance().getGithubUserData() != null) {
-            //TODO: load from server
+            view.renderGithubUserData(GithubUserApplication.getApplicationInstance().getGithubUserData());
         } else {
-            this.view.renderGithubUserData(new ArrayList<GithubUser>());
-
-            service.getAPI()
-                    .getGithubUsers(1, 20)
-                    .enqueue(new Callback<List<GithubUser>>() {
-                        @Override
-                        public void onResponse(Call<List<GithubUser>> call, Response<List<GithubUser>> response) {
-                            view.renderGithubUserData(response.body());
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<GithubUser>> call, Throwable t) {
-                            try {
-                                throw new InterruptedException("Something went wrong!");
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+            getGithubUserData();
         }
+    }
+
+    public void loadMoreData() {
+        currentPage++;
+        getGithubUserData();
+    }
+
+    private void getGithubUserData() {
+        service.getAPI()
+                .getGithubUsers(currentPage, countPage)
+                .enqueue(new Callback<List<GithubUser>>() {
+                    @Override
+                    public void onResponse(Call<List<GithubUser>> call, Response<List<GithubUser>> response) {
+                        GithubUserApplication.getApplicationInstance().setGithubUserData(response.body());
+                        view.renderGithubUserData(GithubUserApplication.getApplicationInstance().getGithubUserData());
+                        //TODO: evaluate once no more data is retrieved
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<GithubUser>> call, Throwable t) {
+                        try {
+                            throw new InterruptedException("Something went wrong!");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }
