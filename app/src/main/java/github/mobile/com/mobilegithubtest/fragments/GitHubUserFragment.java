@@ -1,5 +1,6 @@
 package github.mobile.com.mobilegithubtest.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import github.mobile.com.mobilegithubtest.MainActivity;
 import github.mobile.com.mobilegithubtest.R;
+import github.mobile.com.mobilegithubtest.application.GithubUserApplication;
 import github.mobile.com.mobilegithubtest.core.adapters.GithubUserAdapter;
 import github.mobile.com.mobilegithubtest.mvp.models.GithubUser;
 import github.mobile.com.mobilegithubtest.mvp.presenters.GithubUserPresenter;
@@ -28,6 +31,7 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
     private GithubUserPresenter presenter;
     private GithubUserAdapter adapter;
     private List<GithubUser> githubUserData;
+    private MainActivity activity;
 
     public GitHubUserFragment() {
         // Required empty public constructor
@@ -45,6 +49,18 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
         View view = binding.getRoot();
         initUiComponents(view);
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) getActivity();
     }
 
     private void initUiComponents(View view){
@@ -70,6 +86,8 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
 
                 @Override
                 public void onRepositoryDataLink(int position, GithubUser item) {
+                    GithubUserApplication.getApplicationInstance().setGithubUserAsCurrent(item);
+                    activity.openUserReposScreen();
                 }
             });
             recyclerView.setAdapter(adapter);

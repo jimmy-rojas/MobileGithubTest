@@ -23,6 +23,7 @@ public class GithubUserApplication extends Application {
     private List<GithubUser> GithubUserData;
     private static GithubUserApplication ourInstance;
     public static final int IMAGE_CACHE_SIZE_IN_MB = 25;
+    private GithubUser githubUserAsCurrent;
 
     @Override
     public void onCreate() {
@@ -68,4 +69,11 @@ public class GithubUserApplication extends Application {
         GithubUserData.addAll(githubUserData);
     }
 
+    public void setGithubUserAsCurrent(GithubUser githubUserAsCurrent) {
+        this.githubUserAsCurrent = githubUserAsCurrent;
+    }
+
+    public GithubUser getGithubUserAsCurrent() {
+        return githubUserAsCurrent;
+    }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import github.mobile.com.mobilegithubtest.fragments.GitHubUserFragment;
+import github.mobile.com.mobilegithubtest.fragments.GitHubUserReposFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +25,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void navigate(Fragment fragment, String tag) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         currentFragment = fragment;
         transaction.replace(R.id.body_container, currentFragment, tag);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
+    }
+
+
+    public void openUserReposScreen() {
+        navigate(new GitHubUserReposFragment(), "userRepoList");
     }
 }
