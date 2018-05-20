@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="See Repo in GitHub"
-                android:textStyle="bold"
+                android:textColor="@color/linkText"
                 android:onClick="@{() -> holder.onRepositoryDataLink()}" />
         </LinearLayout>
 
