@@ -1,13 +1,14 @@
 package github.mobile.com.mobilegithubtest.fragments;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +22,7 @@ import github.mobile.com.mobilegithubtest.mvp.view.GitHubUserFragmentView;
 
 public class GitHubUserFragment extends Fragment implements GitHubUserFragmentView {
 
+    private static final String TAG = GitHubUserFragment.class.getName();
     private ViewDataBinding binding;
     private RecyclerView recyclerView;
     private GithubUserPresenter presenter;
@@ -61,12 +63,13 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
             adapter = new GithubUserAdapter(githubUserData, new GithubUserAdapter.IOnUserEventListener() {
                 @Override
                 public void onUserDataLink(int position, GithubUser item) {
-
+                    Intent i = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(item.getHtml_url()));
+                    startActivity(i);
                 }
 
                 @Override
                 public void onRepositoryDataLink(int position, GithubUser item) {
-
                 }
             });
             recyclerView.setAdapter(adapter);
