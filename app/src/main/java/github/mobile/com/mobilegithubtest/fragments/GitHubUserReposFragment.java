@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 
 import github.mobile.com.mobilegithubtest.MainActivity;
 import github.mobile.com.mobilegithubtest.R;
+import github.mobile.com.mobilegithubtest.application.GithubUserApplication;
 import github.mobile.com.mobilegithubtest.core.interfaces.IOnBackPressedListener;
+import github.mobile.com.mobilegithubtest.mvp.models.GithubUser;
 
 public class GitHubUserReposFragment extends Fragment implements IOnBackPressedListener {
 
     private ViewDataBinding binding;
     private MainActivity activity;
     private static GitHubUserReposFragment _instance;
+    private GithubUser githubUser;
 
     public GitHubUserReposFragment() {
         // Required empty public constructor
@@ -47,6 +50,8 @@ public class GitHubUserReposFragment extends Fragment implements IOnBackPressedL
     public void onResume() {
         super.onResume();
         activity.setCurrentFragment(this);
+        githubUser = GithubUserApplication.getApplicationInstance().getGithubUserAsCurrent();
+        activity.setScreeTitle(githubUser.getLogin());
     }
 
     @Override

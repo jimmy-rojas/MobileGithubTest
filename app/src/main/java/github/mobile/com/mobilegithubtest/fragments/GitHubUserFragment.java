@@ -74,6 +74,7 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
     @Override
     public void onResume() {
         super.onResume();
+        activity.setScreeTitle("MobileGithubTest");
         presenter.loadData();
     }
 

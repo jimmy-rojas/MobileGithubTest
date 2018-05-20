@@ -1,5 +1,6 @@
 package github.mobile.com.mobilegithubtest;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentFragment(Fragment currentFragment) {
         this.currentFragment = currentFragment;
+    }
+
+    public void setScreeTitle(@NonNull String title) {
+        setTitle(title);
     }
 
     public enum StackFlag {
