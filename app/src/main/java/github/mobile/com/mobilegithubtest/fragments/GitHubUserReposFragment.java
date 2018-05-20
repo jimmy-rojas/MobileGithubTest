@@ -11,14 +11,23 @@ import android.view.ViewGroup;
 
 import github.mobile.com.mobilegithubtest.MainActivity;
 import github.mobile.com.mobilegithubtest.R;
+import github.mobile.com.mobilegithubtest.core.interfaces.IOnBackPressedListener;
 
-public class GitHubUserReposFragment extends Fragment {
+public class GitHubUserReposFragment extends Fragment implements IOnBackPressedListener {
 
     private ViewDataBinding binding;
     private MainActivity activity;
+    private static GitHubUserReposFragment _instance;
 
     public GitHubUserReposFragment() {
         // Required empty public constructor
+    }
+
+    public static GitHubUserReposFragment get_instance() {
+        if (_instance == null) {
+            _instance = new GitHubUserReposFragment();
+        }
+        return _instance;
     }
 
     @Override
@@ -35,6 +44,12 @@ public class GitHubUserReposFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        activity.setCurrentFragment(this);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         activity = null;
@@ -45,4 +60,11 @@ public class GitHubUserReposFragment extends Fragment {
         super.onAttach(context);
         activity = (MainActivity) getActivity();
     }
+
+    @Override
+    public boolean onBackPressed() {
+        activity.closeCurrent();
+        return true;
+    }
+
 }

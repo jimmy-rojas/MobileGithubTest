@@ -32,9 +32,17 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
     private GithubUserAdapter adapter;
     private List<GithubUser> githubUserData;
     private MainActivity activity;
+    private static GitHubUserFragment _instance;
 
     public GitHubUserFragment() {
         // Required empty public constructor
+    }
+
+    public static GitHubUserFragment get_instance() {
+        if (_instance == null) {
+            _instance = new GitHubUserFragment();
+        }
+        return _instance;
     }
 
     @Override
@@ -63,13 +71,18 @@ public class GitHubUserFragment extends Fragment implements GitHubUserFragmentVi
         activity = (MainActivity) getActivity();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadData();
+    }
+
     private void initUiComponents(View view){
         recyclerView = (RecyclerView)view.findViewById(R.id.rv_userList);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         presenter = new GithubUserPresenter(this);
-        presenter.loadData();
     }
 
     @Override
